@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">
+        <b>
+            <div>
+                NoMoreSnore
+            </div>
+        </b>
+    </string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+</resources>
