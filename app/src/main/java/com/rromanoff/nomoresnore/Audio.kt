@@ -3,7 +3,7 @@ package com.rromanoff.nomoresnore
 import android.media.AudioRecord
 import kotlin.math.abs
 
-class Audio(private val ui:Ui, private val vibrator:Vibration) {
+class Audio(private val ui:Ui, private val notification:Notification) {
 
     private  lateinit var audioRecord:AudioRecord
     private  val bufferSize: Int = AudioRecord.getMinBufferSize(AudioConsts.RECORDER_SAMPLERATE, AudioConsts.RECORDER_CHANNELS, AudioConsts.RECORDER_AUDIO_ENCODING)
@@ -38,7 +38,7 @@ class Audio(private val ui:Ui, private val vibrator:Vibration) {
             val log =  100.0-100.0/( Math.pow(100.0, max) )  // привели линейную шкалу 0..+1 к логарифмической 1..+100
             ui.showAmplitude(log.toInt())
             if (log > ui.getTrashHold()) {
-                vibrator.vibrate() //TODO: here we must send the notify
+                notification.send() //here we send the notify
             }
         }
     }

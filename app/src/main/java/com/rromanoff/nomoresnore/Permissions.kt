@@ -20,6 +20,7 @@ class Permissions(private val context: Activity) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.VIBRATE),2)
 
+/*
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.BROADCAST_STICKY) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.BROADCAST_STICKY),3)
@@ -27,6 +28,7 @@ class Permissions(private val context: Activity) {
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.KILL_BACKGROUND_PROCESSES) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.KILL_BACKGROUND_PROCESSES),4)
+*/
 
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.FOREGROUND_SERVICE) != PackageManager.PERMISSION_GRANTED)

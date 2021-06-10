@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var vibrator : Vibration
     private lateinit var audio : Audio
     private lateinit var cacheDisk:CasheDisk
+    private lateinit var notification:Notification
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +27,11 @@ class MainActivity : AppCompatActivity() {
         ui.setTrashHold(cacheDisk.read().toInt()) //считываем значение трэшхолда из кэша. показываем на "перемотчике"
         vibrator=Vibration(this)
         toast=Toast(this)
-        audio=Audio(ui, vibrator)
 
+        notification=Notification(this)
+
+        notification.init()
+        audio=Audio(ui, notification /*vibrator*/)
         ui.startSwitchHandler(audio, toast) //запускаем обработчик выключателя
         ui.startAudioGateHandler() //
     }
