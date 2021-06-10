@@ -35,6 +35,7 @@ class Audio(private val ui:Ui, private val vibrator:Vibration) {
             }   // выпрямили. теперь каждое значение буфера взято по модулю
             //val avg = BufferLinearFloat.average()  // взяли среднее от всех значений массива
             val max = BufferLinearFloat.maxOrNull()!!.toDouble()  // взяли mаксимальное из всех значений массива
+            //val log =  100.0-100.0/( Math.pow(100.0, avg) )
             val log =  100.0-100.0/( Math.pow(100.0, max) )  // привели линейную шкалу 0..+1 к логарифмической 1..+100
             ui.showAmplitude(log.toInt())
             if (log > ui.getTrashHold()) {

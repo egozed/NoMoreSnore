@@ -1,5 +1,6 @@
 package com.rromanoff.nomoresnore
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.widget.ProgressBar
 import android.widget.SeekBar
@@ -7,6 +8,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 
+@SuppressLint("UseSwitchCompatOrMaterialCode")
 class Ui(private  val context: Activity) {
 
     private lateinit var my_progressBar: ProgressBar
@@ -52,13 +54,15 @@ class Ui(private  val context: Activity) {
         })
     }
 
-    fun showAmplitude(amp:Int=0){
-        my_progressBar.progress=amp
+    fun showAmplitude(nowAmpVal:Int=0){
+        my_progressBar.post { my_progressBar.progress=nowAmpVal }
     }
 
-    fun setTrashHold(amp:Int=0){
-        my_seekBar.progress=amp
-        gateVal_textView.text = amp.toString()
+    fun setTrashHold(maxAmpVal:Int=0){
+        //my_seekBar.progress=maxAmpVal
+        my_seekBar.post { my_seekBar.progress=maxAmpVal }
+        //gateVal_textView.text = maxAmpVal.toString()
+        gateVal_textView.post { gateVal_textView.text=maxAmpVal.toString() }
     }
 
     fun getTrashHold():Int{
