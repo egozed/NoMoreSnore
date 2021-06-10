@@ -39,7 +39,7 @@ class CasheDisk(private val context: Context) {
         //перадаем поток в наш буффер, который считывает информацию из файла
         val buffer = BufferedReader(InputStreamReader(inputStream))
         val stringBuilder = StringBuilder()
-        var line: String? = null
+        var line: String?
 
         while (true) {
             line = buffer.readLine() ?: break

@@ -3,14 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rromanoff.nomoresnore">
     <!--
+            <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="default_channel_id"/>
+
+                    <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            <service
+            android:name="SHIT.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
         android:configChanges="keyboardHidden|orientation|screenSize"
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+        <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+        <uses-permission android:name="android.permission.VIBRATE" />
+
+    -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <application
         android:screenOrientation="portrait"
@@ -20,25 +34,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NoMoreSnore">
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="default_channel_id"/>
+
         <activity android:name=".MainActivity">
-
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name=".MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
+
     </application>
 
 </manifest>
