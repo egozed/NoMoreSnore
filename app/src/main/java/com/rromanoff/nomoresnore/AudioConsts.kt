@@ -5,7 +5,6 @@ import android.media.AudioRecord
 import android.media.MediaRecorder
 
 object AudioConsts {
-
     const val RECORDER_SAMPLERATE:Int = 44100 // 4000..192000 8000 hz = 8000 per sec => updates every 125us(0.000125s)
     const val SOURCE:Int = MediaRecorder.AudioSource.MIC
     const val RECORDER_CHANNELS:Int = AudioFormat.CHANNEL_IN_MONO
