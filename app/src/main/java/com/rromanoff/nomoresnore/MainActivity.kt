@@ -37,29 +37,28 @@ class MainActivity : AppCompatActivity() {
         ui.startAudioGateHandler() //
     }
 
+    override fun onStart() {
+        super.onStart()
+        ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt())
+    }
+    override fun onRestart() {
+        super.onRestart()
+        ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt())
+    }
     override fun onResume() {
         super.onResume()
         ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt())
     }
-
     override fun onPause() {
         super.onPause()
-/*
-        ui.my_switch.isChecked=false
-        ui.showAmplitude(0)
-*/
         cacheDisk.save("TrashHoldValue.txt",ui.getTrashHold().toString())
+//        ui.my_switch.isChecked=false;         ui.showAmplitude(0)
     }
-
     override fun onStop() {
         super.onStop()
-/*
-        ui.my_switch.isChecked=false
-        ui.showAmplitude(0)
-*/
         cacheDisk.save("TrashHoldValue.txt",ui.getTrashHold().toString())
+//        ui.my_switch.isChecked=false;         ui.showAmplitude(0)
     }
-
     override fun onDestroy() {
         super.onDestroy()
         cacheDisk.save("TrashHoldValue.txt",ui.getTrashHold().toString())
