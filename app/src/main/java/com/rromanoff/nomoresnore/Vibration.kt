@@ -1,4 +1,4 @@
-package com.rromanoff.nomoresnore
+//package com.rromanoff.nomoresnore
 
 import android.app.Activity
 import android.content.Context

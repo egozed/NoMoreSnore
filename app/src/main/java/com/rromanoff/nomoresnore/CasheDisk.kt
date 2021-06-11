@@ -8,9 +8,9 @@ import java.io.InputStreamReader
 
 class CasheDisk(private val context: Context) {
 
-    val fileName = "seekBarValue"
+    //val fileName = "seekBarValue"
 
-    fun save(seekBarValue: String) {
+    fun save(fileName:String, seekBarValue: String) {
         var outputStream: FileOutputStream? = null
 
         try {
@@ -26,7 +26,7 @@ class CasheDisk(private val context: Context) {
         }
     }
 
-    fun read():String {
+    fun read(fileName:String):String {
         var inputStream: FileInputStream? = null
         try {
         //открываем входящий поток для получения нашего файла
@@ -34,7 +34,7 @@ class CasheDisk(private val context: Context) {
 
         } catch (exc: Exception) {
             //exc.printStackTrace()
-            save("80")
+            save(fileName,"80")
         }
         //перадаем поток в наш буффер, который считывает информацию из файла
         val buffer = BufferedReader(InputStreamReader(inputStream))

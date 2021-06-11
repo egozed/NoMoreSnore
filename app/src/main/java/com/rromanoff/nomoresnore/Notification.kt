@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 
 class Notification(private val context: Context) {
@@ -61,7 +62,13 @@ class Notification(private val context: Context) {
 
     fun send(){
         //создаем уведомление
-        notificationManager.notify(NOTIFY_ID, builder.build())
+        Thread{
+            for (count in 0..5){
+                notificationManager.notify(NOTIFY_ID+count, builder.build())
+                SystemClock.sleep(1500)
+                notificationManager.cancel(NOTIFY_ID+count)
+            }
+        }.start()
     }
 
 }
