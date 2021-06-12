@@ -32,6 +32,7 @@
         android:progressTint="#FF0000"
         android:scaleY="3"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/my_seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +47,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:progressBackgroundTint="@color/white"
+        android:progressTint="#00FFFFFF"
         android:scaleY="5"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,10 +59,6 @@
         android:id="@+id/my_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:checked="false"
         android:gravity="center"
         android:orientation="vertical"
@@ -70,8 +68,9 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_progressBar"
         tools:ignore="UseSwitchCompatOrMaterialXml"
         tools:visibility="visible" />
 
@@ -79,6 +78,7 @@
         android:id="@+id/gateVal_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
         android:fontFamily="sans-serif-black"
         android:lineSpacingExtra="8sp"
         android:text="42"
@@ -89,7 +89,28 @@
         android:typeface="normal"
         app:layout_constraintBottom_toTopOf="@+id/my_switch"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/my_progressBar" />
+
+    <EditText
+        android:id="@+id/editText_Delay_in_mSec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:autofillHints="2000"
+        android:ems="10"
+        android:focusable="true"
+        android:hint="Enter Delay  mSec"
+        android:inputType="numberDecimal"
+        android:text="2000"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_switch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

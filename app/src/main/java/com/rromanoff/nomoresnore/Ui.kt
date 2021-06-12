@@ -2,10 +2,9 @@ package com.rromanoff.nomoresnore
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.widget.ProgressBar
-import android.widget.SeekBar
-import android.widget.Switch
-import android.widget.TextView
+import android.view.KeyEvent
+import android.view.View
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -17,6 +16,7 @@ class Ui(private  val context: Activity) {
     lateinit var my_switch: Switch
     lateinit var gateVal_textView: TextView
     lateinit var my_ConstraintLayout: ConstraintLayout
+    lateinit var editText_Delay_in_mSec:EditText
 
     fun create(){
         my_progressBar = context.findViewById(R.id.my_progressBar)
@@ -24,18 +24,46 @@ class Ui(private  val context: Activity) {
         my_seekBar = context.findViewById(R.id.my_seekBar)
         my_switch = context.findViewById(R.id.my_switch)
         gateVal_textView = context.findViewById(R.id.gateVal_textView)
+        editText_Delay_in_mSec = context.findViewById(R.id.editText_Delay_in_mSec)
     }
 
-    fun startSwitchHandler(audio:Audio, toast:Toast) {
+    fun editTextDelayHandler(notification:Notification) {
+         editText_Delay_in_mSec.setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
+                // if the event is a key down event on the enter button
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    // perform action on key press
+                    if (!editText_Delay_in_mSec.text.equals("")){
+                        notification.DELAY = editText_Delay_in_mSec.text.toString().toLong()
+                        //toast.show(editText_Delay_in_mSec.text.toString())
+                    }
+
+                    // clear focus and hide cursor from edit text
+                    editText_Delay_in_mSec.clearFocus()
+                    //editText_Delay_in_mSec.isCursorVisible = false
+                    editText_Delay_in_mSec.isEnabled=false
+                    editText_Delay_in_mSec.isEnabled=true
+
+                    return true
+                }
+                return false
+            }
+        })
+    }
+
+    fun startSwitchHandler(audio:Audio, toast:Toast, notification:Notification) {
         my_switch.setOnCheckedChangeListener { _, isChecked ->
             when (isChecked) {
                 true -> {   /*User turn ON the SWITCH*/
                     toast.show(R.string.on)
                     my_ConstraintLayout.keepScreenOn = true
+                    notification.init()
                     audio.startAudioMicInterface()
+
                 }
                 false -> {  /*User turn OFF the SWITCH*/
                     toast.show(R.string.off)
+                    notification.killNotification()
                     audio.stopAudioMicInterface()
                     showAmplitude(0)
                     my_ConstraintLayout.keepScreenOn = false
