@@ -41,6 +41,15 @@ class Permissions(private val context: Activity) {
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.WAKE_LOCK),6)
+
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_NOTIFICATION_POLICY) != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.ACCESS_NOTIFICATION_POLICY),7)
+
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.MODIFY_AUDIO_SETTINGS) != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.MODIFY_AUDIO_SETTINGS),8)
+
     }
 
 }

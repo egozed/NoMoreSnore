@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt",).toInt()) //считываем значение трэшхолда из кэша. показываем на "перемотчике"
         toast=Toast(this)
         notification=Notification(this)
-        audio=Audio(ui, notification /*vibrator*/)
+        audio=Audio(this, ui, notification /*vibrator*/)
         ui.startSwitchHandler(audio, toast, notification) //запускаем обработчик выключателя
         ui.startAudioGateHandler() //запускаем обработчик звукового порога
         ui.editTextDelayHandler(notification) //запускаем обработчик задержки между пушами

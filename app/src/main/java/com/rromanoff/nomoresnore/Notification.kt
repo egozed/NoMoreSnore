@@ -79,8 +79,10 @@ class Notification(private val context: Context) {
             //создаем уведомление
             notificationManager.notify(NOTIFY_ID, builder.build())
 
-            if (SIGNAL_SEND_NOTIFY and !SIGNAL_KILL_NOTIFY) SystemClock.sleep(DELAY)
-            notificationManager.cancel(NOTIFY_ID) //убиваем уведомление
+            if (SIGNAL_SEND_NOTIFY and !SIGNAL_KILL_NOTIFY) {
+                Thread.sleep(DELAY) //SystemClock
+            }
+                notificationManager.cancel(NOTIFY_ID) //убиваем уведомление
         }
     }
 
