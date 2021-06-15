@@ -62,7 +62,7 @@ class Ui(private  val context: Activity) {
                     my_ConstraintLayout.keepScreenOn = true
                     notification.init()
                     audio.startAudioMicInterface()
-                    //audio.setSilentMode()
+                    audio.setSilentMode()
                 }
                 false -> {  /*User turn OFF the SWITCH*/
                     toast.show(R.string.off)
@@ -70,7 +70,7 @@ class Ui(private  val context: Activity) {
                     audio.stopAudioMicInterface()
                     showAmplitude(0)
                     my_ConstraintLayout.keepScreenOn = false
-                    //audio.setSilentNormal()
+                    audio.setNormalMode()
                 }
             }
         }

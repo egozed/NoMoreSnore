@@ -2,9 +2,14 @@ package com.rromanoff.nomoresnore
 
 import android.Manifest
 import android.app.Activity
+import android.app.NotificationManager
+import android.content.Context.NOTIFICATION_SERVICE
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 
 class Permissions(private val context: Activity) {
 
@@ -50,6 +55,11 @@ class Permissions(private val context: Activity) {
                 Manifest.permission.MODIFY_AUDIO_SETTINGS) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.MODIFY_AUDIO_SETTINGS),8)
 
+        val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        if(!notificationManager.isNotificationPolicyAccessGranted){
+            val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+            startActivity(context,intent,null)
+        }
     }
 
 }

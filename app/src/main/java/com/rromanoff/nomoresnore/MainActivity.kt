@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var audio : Audio
     private lateinit var cacheDisk:CasheDisk
     private lateinit var notification:Notification
+    //private lateinit var mode : AudioManager
 /*
     private lateinit var vibrator : Vibration
 */
@@ -24,41 +25,42 @@ class MainActivity : AppCompatActivity() {
         permissions=Permissions(this)
         permissions.getPermissions() //запрашиваем разрешения
         cacheDisk=CasheDisk(this)
-        ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt",).toInt()) //считываем значение трэшхолда из кэша. показываем на "перемотчике"
+        ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt()) //считываем значение трэшхолда из кэша. показываем на "перемотчике"
         toast=Toast(this)
         notification=Notification(this)
+        //mode = getSystemService(AUDIO_SERVICE) as AudioManager
         audio=Audio(this, ui, notification /*vibrator*/)
         ui.startSwitchHandler(audio, toast, notification) //запускаем обработчик выключателя
         ui.startAudioGateHandler() //запускаем обработчик звукового порога
         ui.editTextDelayHandler(notification) //запускаем обработчик задержки между пушами
-/*
-        vibrator=Vibration(this)
-*/
+        /* vibrator=Vibration(this)*/
+
     }
 
     override fun onStart() {
         super.onStart()
         ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt())
+        if (ui.my_switch.isChecked){audio.setSilentMode()}
     }
     override fun onRestart() {
         super.onRestart()
         ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt())
-        //notification.killAll()
+        if (ui.my_switch.isChecked){audio.setSilentMode()}
     }
     override fun onResume() {
         super.onResume()
         ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt())
-        //notification.killAll()
+        if (ui.my_switch.isChecked){audio.setSilentMode()}
     }
     override fun onPause() {
         super.onPause()
         cacheDisk.save("TrashHoldValue.txt",ui.getTrashHold().toString())
-        //notification.killAll()
-//        ui.my_switch.isChecked=false;         ui.showAmplitude(0)
+        audio.setNormalMode()
     }
     override fun onStop() {
         super.onStop()
         cacheDisk.save("TrashHoldValue.txt",ui.getTrashHold().toString())
+        audio.setNormalMode()
         //notification.killAll()
 //        ui.my_switch.isChecked=false;         ui.showAmplitude(0)
     }
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         cacheDisk.save("TrashHoldValue.txt",ui.getTrashHold().toString())
         audio.stopAudioMicInterface()
+        audio.setNormalMode()
         if( notification.NOTIFY_ID != 0 ) notification.killNotification() //значит запускали хоть разок
     }
 

@@ -5,8 +5,9 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.SystemClock
 import androidx.core.app.NotificationCompat
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class Notification(private val context: Context) {
     //создаем идентификатор для нашего уведомления
@@ -24,13 +25,13 @@ class Notification(private val context: Context) {
     private lateinit var contentIntent: PendingIntent
     private lateinit var builder: NotificationCompat.Builder
     private lateinit var notificationIntent:Intent
-    private lateinit var notificationThread:Thread
+//    private lateinit var notificationThread:Thread
     private var SIGNAL_SEND_NOTIFY:Boolean = false
     private var SIGNAL_KILL_NOTIFY:Boolean = false
     private val noMoreSnore= arrayOf("No","More","Snore")
     var DELAY = 2000L
 
-    private fun makeNotification() {
+    private suspend fun makeNotification() {
         for (count in 0..2) {
             if (!SIGNAL_SEND_NOTIFY or SIGNAL_KILL_NOTIFY) return
             NOTIFY_ID = count
@@ -80,15 +81,17 @@ class Notification(private val context: Context) {
             notificationManager.notify(NOTIFY_ID, builder.build())
 
             if (SIGNAL_SEND_NOTIFY and !SIGNAL_KILL_NOTIFY) {
-                Thread.sleep(DELAY) //SystemClock
+//                Thread.sleep(DELAY) //SystemClock
+                delay(DELAY) //SystemClock
+
             }
-                notificationManager.cancel(NOTIFY_ID) //убиваем уведомление
+            notificationManager.cancel(NOTIFY_ID) //убиваем уведомление
         }
     }
 
     fun init(){
         SIGNAL_KILL_NOTIFY = false
-        notificationThread = Thread(Runnable { run {
+/*        notificationThread = Thread(Runnable { run {
             while(!SIGNAL_KILL_NOTIFY){
                 if (SIGNAL_SEND_NOTIFY) {
                     makeNotification()
@@ -96,17 +99,26 @@ class Notification(private val context: Context) {
                 }
             }
         } } ,"Notification Thread")
-        notificationThread.start()
+        notificationThread.start()*/
     }
 
     fun send(){
         SIGNAL_SEND_NOTIFY = true
+        runBlocking {
+            run {
+                //while(!SIGNAL_KILL_NOTIFY){
+                if (SIGNAL_SEND_NOTIFY) {
+                    makeNotification()
+                    SIGNAL_SEND_NOTIFY = false
+                }
+            }
+        }
     }
 
     fun killNotification() {
         SIGNAL_SEND_NOTIFY = false
         SIGNAL_KILL_NOTIFY = true
-        notificationThread.join()
+        //notificationThread.join()
         //notificationManager.cancelAll()
     }
 }

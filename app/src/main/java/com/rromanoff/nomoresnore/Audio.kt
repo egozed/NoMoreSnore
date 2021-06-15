@@ -8,7 +8,7 @@ import kotlin.math.abs
 
 class Audio(private val context: Context, private val ui:Ui, private val notification:Notification) {
 
-    private val mode = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    private val myAudioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     private  lateinit var audioRecord:AudioRecord
     private  val bufferSize: Int = AudioRecord.getMinBufferSize(AudioConsts.RECORDER_SAMPLERATE, AudioConsts.RECORDER_CHANNELS, AudioConsts.RECORDER_AUDIO_ENCODING)
     private  val BufferLinearFloat:FloatArray=FloatArray(bufferSize)
@@ -17,6 +17,7 @@ class Audio(private val context: Context, private val ui:Ui, private val notific
     private  var isRecording = false
 
     fun startAudioMicInterface(){
+        //setSilentMode()
         audioRecord = AudioRecord(AudioConsts.SOURCE,AudioConsts.RECORDER_SAMPLERATE,AudioConsts.RECORDER_CHANNELS,AudioConsts.RECORDER_AUDIO_ENCODING,bufferSize)
         audioRecord.startRecording()
         isRecording = true
@@ -54,16 +55,14 @@ class Audio(private val context: Context, private val ui:Ui, private val notific
         BufferLinearFloat.fill(0.0f, 0,bufferSize-1) //clean buf
         audioRecord.stop()
         audioRecord.release()
+        //setNormalMode()
     }
 
     fun setSilentMode(){
-        if(mode.getRingerMode() != AudioManager.RINGER_MODE_SILENT) {
-            mode.setRingerMode(AudioManager.RINGER_MODE_SILENT)
-        }
+        myAudioManager.ringerMode=AudioManager.RINGER_MODE_SILENT
     }
 
-    fun setSilentNormal(){
-        if(mode.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
-            mode.setRingerMode(AudioManager.RINGER_MODE_NORMAL)
-        }    }
+    fun setNormalMode(){
+        myAudioManager.ringerMode=AudioManager.RINGER_MODE_NORMAL
+    }
 }

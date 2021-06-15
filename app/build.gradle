@@ -52,7 +52,8 @@ android {
 apply plugin: 'com.google.gms.google-services'
 
 dependencies {
-
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-native-mt'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0-native-mt'
 //    implementation platform('com.google.firebase:firebase-bom:28.1.0')
 //    implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'androidx.annotation:annotation:1.2.0'
