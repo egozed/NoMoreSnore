@@ -20,6 +20,8 @@ class Notification(private val context: Context) {
     private var CONTENT_TITLE = "NoMoreSnore"
     //содержание уведомления
     private var CONTENT_TEXT = "Тccc!"
+    private var GROUP_KEY = "GroupKey"
+
     private lateinit var notificationChannel: NotificationChannel
     private lateinit var notificationManager: NotificationManager
     private lateinit var contentIntent: PendingIntent
@@ -45,6 +47,9 @@ class Notification(private val context: Context) {
             CONTENT_TEXT = "\nТc"
             repeat(count){CONTENT_TEXT+="c"}
             CONTENT_TEXT+="!"
+
+            GROUP_KEY = "GroupKey$count"
+
             //создаем канал уведомлений
             notificationChannel = NotificationChannel(
                 CHANNEL_ID,
@@ -71,6 +76,8 @@ class Notification(private val context: Context) {
             //передаем в него необходимые параметры
             builder.setContentIntent(contentIntent)
                 .setSilent(true)
+                .setGroup(GROUP_KEY)
+                //.setOngoing(false)
                 .setAutoCancel(true)
                 .setSmallIcon(R.drawable.snorking_smile) //значек для уведомления
                 .setContentTitle(CONTENT_TITLE) //заголовок уведомления
@@ -107,10 +114,10 @@ class Notification(private val context: Context) {
         runBlocking {
             run {
                 //while(!SIGNAL_KILL_NOTIFY){
-                if (SIGNAL_SEND_NOTIFY) {
+                //if (SIGNAL_SEND_NOTIFY) {
                     makeNotification()
                     SIGNAL_SEND_NOTIFY = false
-                }
+                //}
             }
         }
     }
