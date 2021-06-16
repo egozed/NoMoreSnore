@@ -1,14 +1,13 @@
 package com.rromanoff.nomoresnore
 
 import android.content.Context
-import android.media.AudioManager
 import android.media.AudioRecord
 import kotlin.math.abs
 
 
 class Audio(private val context: Context, private val ui:Ui, private val notification:Notification) {
 
-    private val myAudioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+//    private val myAudioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     private  lateinit var audioRecord:AudioRecord
     private  val bufferSize: Int = AudioRecord.getMinBufferSize(AudioConsts.RECORDER_SAMPLERATE, AudioConsts.RECORDER_CHANNELS, AudioConsts.RECORDER_AUDIO_ENCODING)
     private  val BufferLinearFloat:FloatArray=FloatArray(bufferSize)
@@ -58,11 +57,11 @@ class Audio(private val context: Context, private val ui:Ui, private val notific
         //setNormalMode()
     }
 
-    fun setSilentMode(){
+/*    fun setSilentMode(){
         myAudioManager.ringerMode=AudioManager.RINGER_MODE_SILENT
     }
 
     fun setNormalMode(){
         myAudioManager.ringerMode=AudioManager.RINGER_MODE_NORMAL
-    }
+    }*/
 }

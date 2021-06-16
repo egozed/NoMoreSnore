@@ -2,13 +2,10 @@ package com.rromanoff.nomoresnore
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
-import android.media.AudioManager
 import android.view.KeyEvent
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.getSystemService
 
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -29,6 +26,7 @@ class Ui(private  val context: Activity) {
         my_switch = context.findViewById(R.id.my_switch)
         gateVal_textView = context.findViewById(R.id.gateVal_textView)
         editText_Delay_in_mSec = context.findViewById(R.id.editText_Delay_in_mSec)
+
     }
 
     fun editTextDelayHandler(notification:Notification) {
@@ -62,7 +60,7 @@ class Ui(private  val context: Activity) {
                     my_ConstraintLayout.keepScreenOn = true
                     notification.init()
                     audio.startAudioMicInterface()
-                    audio.setSilentMode()
+                    //audio.setSilentMode()
                 }
                 false -> {  /*User turn OFF the SWITCH*/
                     toast.show(R.string.off)
@@ -70,7 +68,7 @@ class Ui(private  val context: Activity) {
                     audio.stopAudioMicInterface()
                     showAmplitude(0)
                     my_ConstraintLayout.keepScreenOn = false
-                    audio.setNormalMode()
+                    //audio.setNormalMode()
                 }
             }
         }

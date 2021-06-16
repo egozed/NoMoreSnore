@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         ui.startSwitchHandler(audio, toast, notification) //запускаем обработчик выключателя
         ui.startAudioGateHandler() //запускаем обработчик звукового порога
         ui.editTextDelayHandler(notification) //запускаем обработчик задержки между пушами
+        ui.editText_Delay_in_mSec.setText(notification.DELAY.toString())
         /* vibrator=Vibration(this)*/
 
     }
@@ -40,27 +41,27 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt())
-        if (ui.my_switch.isChecked){audio.setSilentMode()}
+//        if (ui.my_switch.isChecked){audio.setSilentMode()}
     }
     override fun onRestart() {
         super.onRestart()
         ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt())
-        if (ui.my_switch.isChecked){audio.setSilentMode()}
+//        if (ui.my_switch.isChecked){audio.setSilentMode()}
     }
     override fun onResume() {
         super.onResume()
         ui.setTrashHold(cacheDisk.read("TrashHoldValue.txt").toInt())
-        if (ui.my_switch.isChecked){audio.setSilentMode()}
+//        if (ui.my_switch.isChecked){audio.setSilentMode()}
     }
     override fun onPause() {
         super.onPause()
         cacheDisk.save("TrashHoldValue.txt",ui.getTrashHold().toString())
-        audio.setNormalMode()
+//        audio.setNormalMode()
     }
     override fun onStop() {
         super.onStop()
         cacheDisk.save("TrashHoldValue.txt",ui.getTrashHold().toString())
-        audio.setNormalMode()
+//        audio.setNormalMode()
         //notification.killAll()
 //        ui.my_switch.isChecked=false;         ui.showAmplitude(0)
     }
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         cacheDisk.save("TrashHoldValue.txt",ui.getTrashHold().toString())
         audio.stopAudioMicInterface()
-        audio.setNormalMode()
+//        audio.setNormalMode()
         if( notification.NOTIFY_ID != 0 ) notification.killNotification() //значит запускали хоть разок
     }
 
