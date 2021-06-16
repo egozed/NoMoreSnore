@@ -33,6 +33,7 @@ class Notification(private val context: Context) {
     private var SIGNAL_SEND_NOTIFY:Boolean = false
     private var SIGNAL_KILL_NOTIFY:Boolean = false
     private val noMoreSnore= arrayOf("No","More","Snore")
+    private val categoryMsg= arrayOf(NotificationCompat.CATEGORY_ALARM,NotificationCompat.CATEGORY_CALL,NotificationCompat.CATEGORY_MESSAGE)
     var DELAY = 1000L
 
     private suspend fun makeNotification() {
@@ -81,7 +82,7 @@ class Notification(private val context: Context) {
                 .setGroup(GROUP_KEY)
                 //.setOngoing(true)
                 .setAutoCancel(false)
-                .setCategory(count.toString())
+                .setCategory(categoryMsg[count])
                 .setShowWhen(false)
                 .setSmallIcon(R.drawable.snorking_smile) //значек для уведомления
                 .setContentTitle(CONTENT_TITLE) //заголовок уведомления
@@ -93,7 +94,7 @@ class Notification(private val context: Context) {
             //создаем уведомление
             notificationManager.notify(NOTIFY_ID, builder.build())
 
-            repeat(10){if (SIGNAL_SEND_NOTIFY and !SIGNAL_KILL_NOTIFY) delay(DELAY/10)} //!КОСТЫЛЬ!
+            repeat(10){if (SIGNAL_SEND_NOTIFY and !SIGNAL_KILL_NOTIFY) delay(DELAY/10L)} //!КОСТЫЛЬ!
 //            delay(DELAY)
 //            Thread.sleep(DELAY) //SystemClock
 
